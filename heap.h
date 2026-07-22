@@ -13,6 +13,12 @@ class HEAP{
         }
         heapify();
     }
+    HEAP(const vector<type>& given_data){
+        for(const type& x : given_data){
+            node_list.push_back(x);
+        }
+        heapify();
+    }
 
     bool empty(){
         if(node_list.size() == 0){
@@ -110,12 +116,14 @@ class HEAP{
 
     void heapify(){
         int n = node_list.size();
-        for(int i = n - 1; i > 1; i--){
-            type leaf = node_list[i];
-            type root = node_list[(i + 1 >> 1) - 1];
-            if(cmp(leaf, root) == true){
-                node_list[i] = root;
-                node_list[(i + 1 >> 1) - 1] = leaf;
+        for(int i = 2; i <= n; i <<= 1){
+            for(int j = n - 1; j >= i - 1; j--){
+                type leaf = node_list[j];
+                type root = node_list[(j + 1 >> 1) - 1];
+                if(cmp(leaf, root) == true){
+                    node_list[j] = root;
+                    node_list[(j + 1 >> 1) - 1] = leaf;
+                }
             }
         }
     }
